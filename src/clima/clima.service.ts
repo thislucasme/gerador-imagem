@@ -17,189 +17,94 @@ declare global {
 
 @Injectable()
 export class ClimaService {
-  async criateElement() {
+  async criateElement(message: string) {
     let dom = new JSDOM(
       `<!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Fascinate&family=Inter:wght@700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            height: 200px;
+            max-width: 300px;
 
-    body {
-      background: transparent;
-      /* Make it white if you need */
-      color: #ffffff;
-      
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
-
-    #pic {
-      margin: 3px;
-      border-radius: 10px;
-      padding: 10px;
-      display: block;
-      height: 100px;
-      widows: 700px;
-      background-color: red;
-    }
-
-    #outer {
-      background: #fff url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcJ1P-5wrV_1G-2XFQY11N0iP5NJJeTVvS0w&usqp=CAU) center center/cover no-repeat;
-      border-radius: 0px;
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-
-      height: 500px;
-      width: 700px;
-    }
-
-    #inner {
-      font-family: 'Inter';
-      /* opacity: 0.15; */
-      padding: 20px;
-      border-radius: 10px;
-      background-color: rgba(0, 0, 0, 0.425);
-      height: 300px;
-      width: 500px;
-    }
-
-    #flex-container {
-      display: flex;
-      justify-content: space-between;
-    }
-  </style>
+        }
+        .container {
+            max-width: 100%;
+            height: 300px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .circle-bar {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(#4caf50 0% 80%, #ddd 80% 100%);
+            margin: 0 auto;
+        }
+        .circle-bar::after {
+            content: '80%';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #4caf50;
+        }
+        .note {
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .message {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .grammar {
+            font-size: 16px;
+            color: #333;
+            margin-top: 20px;
+        }
+        .wrong {
+         color: red; 
+         text-decoration: line-through;  
+        }
+               .correction {
+         color: green;   
+        }
+        }
+    </style>
 </head>
+<body >
+    <div class="container">
 
-<body>
-  <div id="outer">
-
-    <div id="inner">
-
-      <div id="flex-container">
-        <div>
-          <h1 id="cidade">Unaí, MG</h1>
-          <h3 id="data">13 de Set. 2022</h3>
-          <img src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-        </div>
-        <div>
-          <h1 id="temperatura" style="font-size: 60px;">72°</h1>
-          <h2 id="minMax" style="font-size: 14px;">19°/29°</h2>
-        </div>
-      </div>
-
-      <div id="flex-container">
-        <div style="margin-top:8px ;">
-          <span>Seg</span>
-          <br />
-          <br />
-          <img width="24px" src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-          <br />
-          <span id="seg">19°</span>
-        </div>
-        <div style="margin-top:8px ;">
-          <span>Ter</span>
-          <br />
-          <br />
-          <img width="24px" src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-          <br />
-          <span id="ter">19°</span>
-        </div>
-        <div style="margin-top:8px ;">
-          <span>Qaua</span>
-          <br />
-          <br />
-          <img width="24px" src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-          <br />
-          <span id="qua">19°</span>
-        </div>
-        <div style="margin-top:8px ;">
-          <span>Qui</span>
-          <br />
-          <br />
-          <img width="24px" src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-          <br />
-          <span id="qui">19°</span>
-        </div>
-        <div style="margin-top:8px ;">
-          <span>Sext</span>
-          <br />
-          <br />
-          <img width="24px" src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-          <br />
-          <span id="sex">19°</span>
-        </div>
-        <div style="margin-top:8px ;">
-          <span>Sab</span>
-          <br />
-          <br />
-          <img width="24px" src="https://i.ibb.co/bgfSjkj/storm-1.png" />
-          <br />
-          <span id="sab">19°</span>
-        </div>
-
-      </div>
-
+        <div class="note">Nota Geral</div>
+        <div class="message">You are doing great!</div>
+        <div class="grammar">Gramática: 80/100</div>
+        
+<div>
+      ${message}
+</div>
     </div>
-
-  </div>
-
- 
-  <script src="index.js"></script>
 </body>
-
-</html>`
+</html>
+`
     )
     const document = dom.window.document
 
-    const cidade = document.getElementById('cidade')
-    const data = document.getElementById('data')
-    const temeperaturaAtual = document.getElementById('temperatura')
-    const minMax = document.getElementById('minMax')
-
-    const seg = document.getElementById('seg')
-    const ter = document.getElementById('ter')
-    const qua = document.getElementById('qua')
-    const qui = document.getElementById('qui')
-    const sex = document.getElementById('sex')
-    const sab = document.getElementById('sab')
-
-    await axios
-      .get(
-        'https://api.hgbrasil.com/weather?key=1cd578c4&city_name=Paracatu,MG'
-      )
-      .then(result => {
-        //console.log(result?.data?.results)
-        cidade.innerHTML = result?.data?.results?.city
-        data.innerHTML = result?.data?.results?.time
-        temeperaturaAtual.innerHTML = `${result?.data?.results?.temp}°`
-        minMax.innerHTML = `ventos de ${result?.data?.results?.wind_speedy}`
-        seg.innerHTML = `${result?.data?.results?.forecast[0]?.max}° / ${result?.data?.results?.forecast[0]?.min}°`
-        ter.innerHTML = `${result?.data?.results?.forecast[1]?.max}° / ${result?.data?.results?.forecast[0]?.min}°`
-        qua.innerHTML = `${result?.data?.results?.forecast[2]?.max}° / ${result?.data?.results?.forecast[0]?.min}°`
-        qui.innerHTML = `${result?.data?.results?.forecast[3]?.max}° / ${result?.data?.results?.forecast[0]?.min}°`
-        sex.innerHTML = `${result?.data?.results?.forecast[4]?.max}° / ${result?.data?.results?.forecast[0]?.min}°`
-        sab.innerHTML = `${result?.data?.results?.forecast[5]?.max}° / ${result?.data?.results?.forecast[0]?.min}°`
-      })
-      .catch(erro => {
-        console.log(erro)
-      })
-
-    // const value = dom.window.document.querySelector('p').textContent
-    const value = 'lucas'
-    // return document.getElementById('cidade').textContent
-    //const re = await this.gerarImagem(document)
-    //console.log(document.getElementsByTagName('html')[0].innerHTML)
+    
     return document.getElementsByTagName('html')[0].innerHTML
   }
   async show() {

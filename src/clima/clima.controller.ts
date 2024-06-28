@@ -1,4 +1,4 @@
-import { Controller, Get, Res } from '@nestjs/common'
+import { Body, Controller, Get, Res } from '@nestjs/common'
 import { ClimaService } from './clima.service'
 import nodeHtmlToImage from 'node-html-to-image'
 import { launch } from 'puppeteer'
@@ -15,7 +15,19 @@ export class ClimaController {
   constructor(private climaService: ClimaService) {}
   @Get()
   async get(@Res() res: Response) {
-    const html = await this.climaService.criateElement()
+    const html = await this.climaService.criateElement("")
+
+    const image = await nodeHtmlToImage({
+      html: html,
+    })
+
+    res.writeHead(200, { 'Content-Type': 'image/png' })
+    res.end(image, 'base64')
+    // return this.climaService.criateElement()
+  }
+    @Get("relatorio")
+  async gerarRelatorio(@Res() res: Response, @Body() body: any) {
+    const html = await this.climaService.criateElement(body?.mensagem)
 
     const image = await nodeHtmlToImage({
       html: html,
